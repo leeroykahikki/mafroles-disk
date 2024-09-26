@@ -3,6 +3,8 @@ const ApiError = require('../error/ApiError');
 
 axios.defaults.headers.common['Authorization'] = process.env.DISK_TOKEN;
 
+const limit = 200;
+
 class DiskController {
   async getTournaments(req, res, next) {
     let data;
@@ -17,6 +19,7 @@ class DiskController {
           params: {
             path: process.env.DISK_PATH + '/photo',
             fields,
+            limit,
           },
         })
         .then((response) => {
@@ -66,6 +69,7 @@ class DiskController {
           params: {
             path,
             fields,
+            limit,
           },
         })
         .then((response) => {
