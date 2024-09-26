@@ -22,7 +22,7 @@ module.exports = async function (req, res, next) {
       return res.status(401).json({ message: `[ACCESS DENIED] Ошибка: Токен не найден` });
     }
 
-    console.log(`[ACCESS ALLOWED] NAME: ${tokenDB.name} | TOKEN: ${tokenDB.token}`);
+    console.log(`[ACCESS ALLOWED] NAME: ${tokenDB.Name} | TOKEN: ${tokenDB.Token}`);
 
     next();
   } catch (e) {
