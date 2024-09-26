@@ -8,19 +8,25 @@ module.exports = async function (req, res, next) {
   try {
     const token = req.headers.authorization.split(' ')[1]; // Bearer asfasnfkajsfnjk
 
-    console.log(token);
+    console.log(`[REQUEST] TOKEN: ${token}`);
+
     if (!token) {
-      return res.status(401).json({ message: 'Не авторизован' });
+      сonsole.log('[ACCESS DENIED] Ошибка: Не авторизован');
+      return res.status(401).json({ message: '[ACCESS DENIED] Ошибка: Не авторизован' });
     }
 
     const tokenDB = await Token.findOne({ Token: token });
 
     if (!tokenDB) {
-      return res.status(401).json({ message: 'Токен не найден' });
+      console.log(`[ACCESS DENIED] Ошибка: Токен не найден | TOKEN: ${token}`);
+      return res.status(401).json({ message: `[ACCESS DENIED] Ошибка: Токен не найден` });
     }
+
+    console.log(`[ACCESS ALLOWED] NAME: ${tokenDB.name} | TOKEN: ${tokenDB.token}`);
 
     next();
   } catch (e) {
-    res.status(401).json({ message: 'Не авторизован' });
+    console.log(`[ACCESS DENIED] Ошибка: Непредвиденный сбой | TOKEN: ${token}`);
+    res.status(401).json({ message: '[ACCESS DENIED] Ошибка: Непредвиденный сбой' });
   }
 };
