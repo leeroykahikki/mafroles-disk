@@ -33,8 +33,13 @@ class DiskController {
       return next(ApiError.badRequest('Произошла ошибка во время запроса к диску'));
     }
 
-    if (Object.keys(data).length === 0) {
-      console.error('[Сервер] Ошибка:', 'Пустой объект с турнирами');
+    try {
+      if (Object.keys(data).length === 0) {
+        console.error('[Сервер] Ошибка:', 'Пустой объект с турнирами');
+        return next(ApiError.badRequest('Данные о турнирах не были получены'));
+      }
+    } catch (error) {
+      console.error('[Сервер] Ошибка:', error.message);
       return next(ApiError.badRequest('Данные о турнирах не были получены'));
     }
 
@@ -83,8 +88,13 @@ class DiskController {
       return next(ApiError.badRequest('Произошла ошибка во время запроса к диску'));
     }
 
-    if (Object.keys(data).length === 0) {
-      console.error('[Сервер] Ошибка:', 'Пустой объект с игроками');
+    try {
+      if (Object.keys(data).length === 0) {
+        console.error('[Сервер] Ошибка:', 'Пустой объект с игроками');
+        return next(ApiError.badRequest('Данные о игроках не были получены'));
+      }
+    } catch (error) {
+      console.error('[Сервер] Ошибка:', error.message);
       return next(ApiError.badRequest('Данные о игроках не были получены'));
     }
 
@@ -128,8 +138,13 @@ class DiskController {
       return next(ApiError.badRequest('Произошла ошибка во время запроса к диску'));
     }
 
-    if (Object.keys(data).length === 0) {
-      console.error('[Сервер] Ошибка:', 'Пустой объект с фотографиями');
+    try {
+      if (Object.keys(data).length === 0) {
+        console.error('[Сервер] Ошибка:', 'Пустой объект с фотографиями');
+        return next(ApiError.badRequest('Данные о фотографиях не были получены'));
+      }
+    } catch (error) {
+      console.error('[Сервер] Ошибка:', error.message);
       return next(ApiError.badRequest('Данные о фотографиях не были получены'));
     }
 
