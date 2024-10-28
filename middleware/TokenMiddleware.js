@@ -26,7 +26,7 @@ module.exports = async function (req, res, next) {
 
     next();
   } catch (e) {
-    console.log(`[ACCESS DENIED] Ошибка: Непредвиденный сбой | TOKEN: ${token}`);
+    console.log('[ACCESS DENIED] Ошибка: Непредвиденный сбой');
     res.status(401).json({ message: '[ACCESS DENIED] Ошибка: Непредвиденный сбой' });
   }
 };
