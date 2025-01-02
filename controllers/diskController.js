@@ -149,9 +149,21 @@ class DiskController {
     }
 
     const defaultImages = {
-      civil: data._embedded.items[0].sizes.find((img) => img.name === 'ORIGINAL').url,
-      mafia: data._embedded.items[1].sizes.find((img) => img.name === 'ORIGINAL').url,
+      civil: '',
+      mafia: '',
     };
+
+    try {
+      defaultImages.civil = data._embedded.items[0].sizes.find(
+        (img) => img.name === 'ORIGINAL',
+      ).url;
+      defaultImages.mafia = data._embedded.items[1].sizes.find(
+        (img) => img.name === 'ORIGINAL',
+      ).url;
+    } catch (e) {
+      console.error('[Сервер] Ошибка:', e.message);
+      return next(ApiError.badRequest('Ошибка при получении фотографий по умолчанию'));
+    }
 
     return res.json(defaultImages);
   }
