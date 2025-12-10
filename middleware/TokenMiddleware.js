@@ -1,5 +1,3 @@
-const { Token } = require('../utils/db');
-
 // проверить не удалён ли пользователь
 module.exports = async function (req, res, next) {
   if (req.method === 'OPTIONS') {
@@ -15,14 +13,14 @@ module.exports = async function (req, res, next) {
       return res.status(401).json({ message: '[ACCESS DENIED] Ошибка: Не авторизован' });
     }
 
-    const tokenDB = await Token.findOne({ Token: token });
+    const tokenServer = process.env.TOKEN_SERVER;
 
-    if (!tokenDB) {
+    if (tokenServer !== token) {
       console.log(`[ACCESS DENIED] Ошибка: Токен не найден | TOKEN: ${token}`);
       return res.status(401).json({ message: `[ACCESS DENIED] Ошибка: Токен не найден` });
     }
 
-    console.log(`[ACCESS ALLOWED] NAME: ${tokenDB.Name} | TOKEN: ${tokenDB.Token}`);
+    console.log(`[ACCESS ALLOWED] TOKEN: ${tokenServer}`);
 
     next();
   } catch (e) {
